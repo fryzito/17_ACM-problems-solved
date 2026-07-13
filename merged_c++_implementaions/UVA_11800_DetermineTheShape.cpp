@@ -29,16 +29,25 @@ using namespace std;
 struct point {
 	int x, y;
 };
-struct vec{ double x,y;
-	vec(double _x, double _y) {x = _x, y = _y;} };
+struct vec{ 
+	double x,y;
+	vec(double _x, double _y) {x = _x, y = _y;} 
+};
+// Points to Vector
 vec Tovector (point p1, point p2) {
 	return vec(p2.x - p1.x , p2.y - p1.y);
 }
+
+// Hipotenusa en base a los lados más pequeños
 double hipotenusa(int dx, int dy) { return sqrt(dx*dx + dy*dy);}
+
+// Distancia de dos puntos
 double distancia(point p1,point p2) {
 	return hipotenusa(p1.x - p2.x,p1.y - p2.y);
 }
+
 struct line {	double a, b, c; };
+
 void pointToLine(point p1, point p2, line *l) {
 	if(p1.x == p2.x) {
 		l->a = 1.0; l ->b = 0.0 ; l->c = -p1.x;
@@ -48,12 +57,15 @@ void pointToLine(point p1, point p2, line *l) {
 		l->c = -(double) (l->a * p1.x) - (l->b*p1.y);
 	}
 }
+
 bool areParallel(line l1, line l2) {
 	return (fabs(l1.a-l2.a) < eps) && (fabs(l1.b-l2.b) < eps);
 }
+
 bool aresame(point p1, point p2) {
 	return fabs(p1.x - p2.x) < eps && fabs(p1.y - p2.y) < eps;
 }
+
 bool Arecto(point A,point B, point C,point D) {
 	vec v1 = Tovector(A,B);
 	vec v2 = Tovector(A,C);
@@ -63,6 +75,7 @@ bool Arecto(point A,point B, point C,point D) {
 	if((v1.x*v3.x) + (v1.y*v3.y) == 0) return true;
 	return false;
 }
+
 bool cuatrolados(point p1, point p2, point p3 , point p4) {
 	line l1,l2; double lado1 = 0,lado2 = 0, lado3 = 0;
 	pointToLine(p1,p2,&l1);
@@ -106,6 +119,7 @@ int main() {
 		double dis5 = distancia(v[1],v[3]); if(dist.find(dis5)==dist.end()) dist.insert(dis5);
 		double dis6 = distancia(v[2],v[3]); if(dist.find(dis6)==dist.end()) dist.insert(dis6);	
 		int lados = dist.sz;
+		//
 		vector<line> vline;
 		line l1, l2, l3, l4, l5, l6;
 		pointToLine(v[0],v[1],&l1); vline.pb(l1);
@@ -118,7 +132,7 @@ int main() {
 		f(i,0,4) {
 			if(Arecto(v[i%4],v[(i+1)%4],v[(i+2)%4],v[(i+3)%4]))
 				rectos++;
-		}			
+		}
 		int paralelos = 0;
 		f(i,0,vline.sz)
 			f(j,i+1,vline.sz) {

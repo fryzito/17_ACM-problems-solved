@@ -32,7 +32,7 @@ int n, m, NIL, match[MAXN + 1], dist[MAXN + 1];
 // NIL: Nodo n+m
 
 int R,C;  
-  
+
 bool bfs(){
     queue <int> Q;
     for(int i=0; i<n; i++) {
